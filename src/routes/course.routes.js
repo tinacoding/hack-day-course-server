@@ -15,6 +15,7 @@ module.exports = app => {
    * 1. Get all courses
    * 2. Create a new course
    * 3. Bulk create courses
+   * 4. Delete all courses
    */
 
   // 1. Get all courses
@@ -25,6 +26,9 @@ module.exports = app => {
 
   // 3. Bulk create courses
   router.post('/bulk', courses.bulkCreate);
+
+  // 4. Delete all courses
+  router.delete('/', courses.deleteAll);
 
   app.use('/api/courses', router);
 }

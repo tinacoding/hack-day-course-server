@@ -61,3 +61,17 @@ exports.findAll = (req, res) => {
 	});
  };
 
+// Delete all courses
+exports.deleteAll = (req, res) => {
+	Course.destroy({
+		where: {},
+		truncate: false
+	}).then(nums => {
+		res.send({ message: `${nums} Courses were successfully deleted!` });
+	}).catch(error => {
+		res.status(500).send({
+			message: error.message || "Some error occured trying to remove all courses."
+		});
+	});
+};
+
