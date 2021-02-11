@@ -1,6 +1,6 @@
 {
   "name": "hack-day-course-server",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "simple server for learning node/express/psql",
   "main": "index.js",
   "scripts": {
