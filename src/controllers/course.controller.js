@@ -29,6 +29,23 @@ exports.create = (req, res) => {
 	});
 };
 
+exports.bulkCreate = (req, res) => {
+	const { courses } = req.body;
+	// remove items that don't have titles
+	// TODO: Add res msg if some items could not be added
+	const validCourses = courses.filter(course => course.title && course.title !== "");
+
+	const coursesData = validCourses.map(({ title, description, published }) => ({ title, description, published }));
+
+	Course.bulkCreate(coursesData, { returning: true }).then(data => {
+		res.send(data);
+	}).catch(error => {
+		res.status(500).send({
+			message: error.message || "Failed to add courses. Please try again."
+		});
+	});
+};
+
 // Find all courses
 // param: title - string, name of the course to find
 exports.findAll = (req, res) => {

@@ -14,6 +14,7 @@ module.exports = app => {
    * /api/courses
    * 1. Get all courses
    * 2. Create a new course
+   * 3. Bulk create courses
    */
 
   // 1. Get all courses
@@ -22,6 +23,8 @@ module.exports = app => {
   // 2. Create a new course
   router.post('/', courses.create);
 
+  // 3. Bulk create courses
+  router.post('/bulk', courses.bulkCreate);
 
   app.use('/api/courses', router);
 }
