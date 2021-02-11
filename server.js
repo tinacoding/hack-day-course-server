@@ -19,6 +19,14 @@ app.use(bodyParser.json());
 // Get content-type - application/x-www-form-urlencoded from requests
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+// DB Setup
+const db = require("./src/models");
+db.sequelize.sync();
+// db.sequelize.sync({ force: true }).then(() => {
+// 	console.log("Drop and resync db");
+// });
+
 // Test Route
 app.get("/", (req, res) => {
 	res.json({ msg: "Hellooooo Baltimore" });
