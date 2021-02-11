@@ -30,5 +30,21 @@ module.exports = app => {
   // 4. Delete all courses
   router.delete('/', courses.deleteAll);
 
+  /**
+   * /api/courses/:id
+   * param: id
+   * 1. Get course by id
+   * 2. Update course by id
+   * 3. Delete course by id
+   */
+  // 1. Get course by id
+  router.get('/:id', courses.findOne);
+
+  // 2. Update course by id
+  router.put('/:id', courses.update);
+
+  // 3. Delete course by id
+  router.delete('/:id', courses.delete);
+
   app.use('/api/courses', router);
 }
