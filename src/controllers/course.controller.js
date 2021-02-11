@@ -61,6 +61,62 @@ exports.findAll = (req, res) => {
 	});
  };
 
+// Find one course by id
+exports.findOne = (req, res) => {
+	const { id } = req.params;
+
+	Course.findByPk(id).then(data => {
+		if (!data) {
+			res.send({ message: "Course does not exist!" });
+		} else {
+			res.send(data);
+		}
+	}).catch(error => {
+		res.status(500).send({
+			message: "Some error occured while finding the Course with id: " + id
+		});
+	});
+};
+
+// Update a course by id
+exports.update = (req, res) => {
+	const { id } = req.params;
+
+	Course.update(req.body, { where: { id } }).then(num => {
+		console.log({ num })
+		if (num == 1) {
+			res.send({ message: "Course updated successfully!" });
+		} else {
+			res.send({
+				message: `Can't update course with id: ${id}. Either course could not be found or the body is empty.`
+			});
+		}
+	}).catch(error => {
+		res.status(500).send({
+			message: "Some error occured while trying to update course with id: " + id
+		});
+	});
+};
+
+// Delete a course by id
+exports.delete = (req, res) => {
+	const { id } = req.params;
+
+	Course.destroy({ where: { id } }).then(num => {
+		if (num == 1) {
+			res.send({ message: "Course was deleted successfully!" });
+		} else {
+			res.send({
+				message: `Cannot delete Course with id: ${id}. Course might not have been found!`
+			});
+		}
+	}).catch(error => {
+		res.status(500).send({
+			message: "Could not delete course with id: " + id
+		});
+	});
+};
+
 // Delete all courses
 exports.deleteAll = (req, res) => {
 	Course.destroy({
@@ -74,4 +130,3 @@ exports.deleteAll = (req, res) => {
 		});
 	});
 };
-
